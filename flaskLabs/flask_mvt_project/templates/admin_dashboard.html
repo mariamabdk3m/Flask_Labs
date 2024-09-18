@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h2>Admin Dashboard</h2>
+
+    <h3>Manage Users</h3>
+    <ul>
+        {% for user in users %}
+        <li>
+            {{ user.username }} ({{ user.email }})
+            <form action="{{ url_for('delete_user', id=user.id) }}" method="POST" style="display:inline;">
+                <button type="submit">Delete</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <h3>Manage Books</h3>
+    <ul>
+        {% for book in books %}
+        <li>
+            <strong>{{ book.title }}</strong> by {{ book.author }} (Added by {{ book.user.username }})
+            <form action="{{ url_for('delete_book', id=book.id) }}" method="POST" style="display:inline;">
+                <button type="submit">Delete</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

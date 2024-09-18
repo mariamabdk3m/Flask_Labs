@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h2>My Library</h2>
+    <a href="{{ url_for('add_book') }}">Add a new book</a><br><br>
+
+    {% if books %}
+        <ul>
+            {% for book in books %}
+            <li>
+                <strong>{{ book.title }}</strong> by {{ book.author }}
+                <form action="{{ url_for('delete_book', id=book.id) }}" method="POST" style="display:inline;">
+                    <button type="submit">Delete</button>
+                </form>
+            </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No books in your library yet!</p>
+    {% endif %}
+
+    <a href="{{ url_for('logout') }}">Logout</a>
+</body>
+</html>
